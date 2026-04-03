@@ -1,0 +1,252 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Upload Card Absensi</title>
+    <link rel="icon" type="image/png" href="pasastore.png" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/navbar.css" />
+    <link rel="stylesheet" href="css/upload-absensi.css" />
+  </head>
+  <body>
+    <nav class="app-navbar">
+      <div class="app-navbar-inner">
+        <a class="app-brand" href="toko-produk.html"
+          >Market<span>Place</span></a
+        >
+        <button
+          class="app-menu-toggle"
+          id="appMenuToggle"
+          type="button"
+          aria-label="Buka menu"
+          aria-expanded="false"
+          aria-controls="appNavWrapper"
+        >
+          <span></span>
+        </button>
+        <div class="app-nav-wrapper" id="appNavWrapper">
+          <button
+            class="app-nav-close"
+            id="appMenuClose"
+            type="button"
+            aria-label="Tutup menu"
+          >
+            ×
+          </button>
+          <ul class="app-nav-list">
+            <li>
+              <a
+                class="app-nav-link"
+                data-page="toko-produk.html"
+                href="toko-produk.html"
+                >Beli Barang</a
+              >
+            </li>
+            <li>
+              <a
+                class="app-nav-link"
+                data-page="upload-produk.html"
+                href="upload-produk.html"
+                >Jual Barang</a
+              >
+            </li>
+            <li>
+              <a class="app-nav-link" data-page="profil.html" href="profil.html"
+                >Lihat Gaji</a
+              >
+            </li>
+            <li>
+              <a
+                class="app-nav-link"
+                data-page="upload-absensi.html"
+                href="upload-absensi.html"
+                >Hitungkan Gaji</a
+              >
+            </li>
+            <li><a class="app-nav-link" id="navAboutBtn" href="#">About</a></li>
+          </ul>
+        </div>
+      </div>
+      <button
+        class="app-nav-overlay"
+        id="appNavOverlay"
+        type="button"
+        aria-label="Tutup menu"
+      ></button>
+    </nav>
+
+    <div class="header">
+      <div class="chip">📋 Absensi Digital</div>
+      <h1>Upload <span>Card Absensi</span><br />Depan & Belakang</h1>
+      <p>
+        Foto card harus terlihat <strong>penuh dari atas sampai bawah</strong>
+      </p>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <div class="card-header-icon">🪪</div>
+        <div class="card-header-text">
+          <h2>Form Upload Absensi</h2>
+          <p>Pastikan foto jelas dan seluruh card terlihat</p>
+        </div>
+      </div>
+
+      <div class="card-body">
+        <!-- FOTO -->
+        <div class="sec-label">📷 Foto Card Absensi</div>
+
+        <div class="hint-box">
+          💡 <strong>Tips foto:</strong> Letakkan card di permukaan datar dengan
+          pencahayaan cukup. Pastikan semua sudut card terlihat
+          <strong>dari atas sampai bawah</strong>. Hindari bayangan dan
+          pantulan.
+        </div>
+
+        <div class="foto-row">
+          <!-- DEPAN -->
+          <div class="foto-slot">
+            <div class="slot-header">
+              <span class="slot-badge badge-depan">⬛ DEPAN</span>
+            </div>
+            <div class="drop-zone depan-zone" id="dzDepan">
+              <input type="file" id="inputDepan" accept="image/*" />
+              <div class="dz-inner">
+                <div class="dz-icon">🪪</div>
+                <h4>Sisi Depan</h4>
+                <p>Tap untuk buka galeri</p>
+              </div>
+            </div>
+            <div class="slot-status status-empty" id="statusDepan">
+              <div class="status-dot"></div>
+              <span>Belum diunggah</span>
+            </div>
+            <div class="photo-field-error" id="errorDepan">
+              ⚠ Foto depan wajib diunggah.
+            </div>
+          </div>
+
+          <!-- BELAKANG -->
+          <div class="foto-slot">
+            <div class="slot-header">
+              <span class="slot-badge badge-belakang">⬜ BELAKANG</span>
+            </div>
+            <div class="drop-zone belakang-zone" id="dzBelakang">
+              <input type="file" id="inputBelakang" accept="image/*" />
+              <div class="dz-inner">
+                <div class="dz-icon">🔄</div>
+                <h4>Sisi Belakang</h4>
+                <p>Tap untuk buka galeri</p>
+              </div>
+            </div>
+            <div class="slot-status status-empty" id="statusBelakang">
+              <div class="status-dot"></div>
+              <span>Belum diunggah</span>
+            </div>
+            <div class="photo-field-error" id="errorBelakang">
+              ⚠ Foto belakang wajib diunggah.
+            </div>
+          </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <!-- FORM -->
+        <div class="sec-label">📝 Keterangan Absensi</div>
+
+        <div class="hint-box">
+          🗒️ <strong>Contoh keterangan:</strong><br />
+          "Pada tanggal 31 saya pulang jam 7 malam karena lembur."<br />
+          "Tanggal 5 saya datang terlambat jam 09.15 karena macet."
+        </div>
+
+        <div class="form-stack">
+          <div class="field-group">
+            <label>Nama Karyawan <span class="req">*</span></label>
+            <input
+              type="text"
+              id="namaKaryawan"
+              placeholder="Masukkan nama lengkap"
+            />
+            <div class="field-error" id="namaError">
+              ⚠ Nama karyawan wajib diisi.
+            </div>
+          </div>
+
+          <div class="two-col">
+            <div class="field-group">
+              <label>Tanggal <span class="req">*</span></label>
+              <input type="date" id="tanggal" />
+              <div class="field-error" id="tanggalError">
+                ⚠ Tanggal wajib diisi.
+              </div>
+            </div>
+            <div class="field-group">
+              <label>Jam <span class="req">*</span></label>
+              <input type="time" id="jam" />
+              <div class="field-error" id="jamError">⚠ Jam wajib diisi.</div>
+            </div>
+          </div>
+
+          <div class="field-group">
+            <label>Keterangan <span class="req">*</span></label>
+            <textarea
+              id="keterangan"
+              rows="5"
+              maxlength="500"
+              placeholder="Tulis keterangan untuk memperjelas card absensi kamu..."
+            ></textarea>
+            <div class="char-row">
+              <div class="field-error" id="keteranganError">
+                ⚠ Keterangan wajib diisi.
+              </div>
+              <div class="char-count" id="charCount">0 / 500</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="submit-area">
+          <div class="progress-bar" id="progressBar">
+            <div class="progress-fill" id="progressFill"></div>
+          </div>
+          <button class="submit-btn" id="submitBtn" onclick="handleSubmit()">
+            <span>📤</span>
+            <span>Kirim Absensi</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- LIGHTBOX -->
+    <div class="lightbox" id="lightbox" onclick="closeLightbox()">
+      <button class="lightbox-close" onclick="closeLightbox()">✕</button>
+      <img id="lightboxImg" src="" alt="preview" />
+      <div class="lightbox-label" id="lightboxLabel"></div>
+    </div>
+
+    <!-- SUCCESS OVERLAY -->
+    <div class="success-overlay" id="successOverlay">
+      <div class="success-card">
+        <div class="success-icon">✅</div>
+        <h2>Absensi Terkirim!</h2>
+        <div class="s-name" id="sName"></div>
+        <div class="s-date" id="sDate"></div>
+        <div class="success-thumbs" id="sThumbs"></div>
+        <div class="success-note" id="sNote"></div>
+        <button class="reset-btn" onclick="resetAll()">
+          + Kirim Absensi Baru
+        </button>
+      </div>
+    </div>
+
+    <!-- TOAST -->
+    <div class="toast" id="toast"></div>
+
+    <script src="js/navbar.js"></script>
+    <script src="js/upload-absensi.js"></script>
+  </body>
+</html>

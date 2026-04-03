@@ -1,0 +1,194 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Upload Produk</title>
+    <link rel="icon" type="image/png" href="pasastore.png" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/navbar.css" />
+    <link rel="stylesheet" href="css/upload-produk.css" />
+  </head>
+  <body>
+    <nav class="app-navbar">
+      <div class="app-navbar-inner">
+        <a class="app-brand" href="toko-produk.html"
+          >Market<span>Place</span></a
+        >
+        <button
+          class="app-menu-toggle"
+          id="appMenuToggle"
+          type="button"
+          aria-label="Buka menu"
+          aria-expanded="false"
+          aria-controls="appNavWrapper"
+        >
+          <span></span>
+        </button>
+        <div class="app-nav-wrapper" id="appNavWrapper">
+          <button
+            class="app-nav-close"
+            id="appMenuClose"
+            type="button"
+            aria-label="Tutup menu"
+          >
+            ×
+          </button>
+          <ul class="app-nav-list">
+            <li>
+              <a
+                class="app-nav-link"
+                data-page="toko-produk.html"
+                href="toko-produk.html"
+                >Beli Barang</a
+              >
+            </li>
+            <li>
+              <a
+                class="app-nav-link"
+                data-page="upload-produk.html"
+                href="upload-produk.html"
+                >Jual Barang</a
+              >
+            </li>
+            <li>
+              <a class="app-nav-link" data-page="profil.html" href="profil.html"
+                >Lihat Gaji</a
+              >
+            </li>
+            <li>
+              <a
+                class="app-nav-link"
+                data-page="upload-absensi.html"
+                href="upload-absensi.html"
+                >Hitungkan Gaji</a
+              >
+            </li>
+            <li><a class="app-nav-link" id="navAboutBtn" href="#">About</a></li>
+          </ul>
+        </div>
+      </div>
+      <button
+        class="app-nav-overlay"
+        id="appNavOverlay"
+        type="button"
+        aria-label="Tutup menu"
+      ></button>
+    </nav>
+
+    <div class="header">
+      <div class="badge">🛒 Jual Online</div>
+      <h1>Upload Produk<br />Kamu Sekarang</h1>
+      <p>Isi detail produk dan foto yang ingin kamu jual</p>
+    </div>
+
+    <div class="card">
+      <div class="photo-section">
+        <div class="section-label">📷 Foto Produk</div>
+
+        <div class="drop-zone" id="dropZone">
+          <input type="file" id="photoInput" accept="image/*" multiple />
+          <div class="drop-icon">🖼️</div>
+          <h3>Pilih atau Seret Foto</h3>
+          <p>Format JPG, PNG, WEBP - maks. 10 foto</p>
+          <div class="browse-btn">Buka Galeri</div>
+        </div>
+
+        <div class="preview-grid" id="previewGrid"></div>
+        <div class="photo-count" id="photoCount"></div>
+        <div class="field-error" id="photoError">
+          ⚠ Minimal 1 foto produk harus diunggah.
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <div class="form-grid">
+        <div class="field-group">
+          <label>Nama Produk <span class="req">*</span></label>
+          <input
+            type="text"
+            id="namaProduk"
+            placeholder="Contoh: Kaos Polos Oversize Hitam"
+            maxlength="100"
+          />
+          <div class="field-error" id="namaError">
+            ⚠ Nama produk wajib diisi.
+          </div>
+        </div>
+
+        <div class="field-group">
+          <label>Keterangan Produk <span class="req">*</span></label>
+          <textarea
+            id="keteranganProduk"
+            rows="4"
+            placeholder="Deskripsikan produk kamu: bahan, ukuran, warna, kondisi, dll."
+          ></textarea>
+          <div class="field-error" id="keteranganError">
+            ⚠ Keterangan produk wajib diisi.
+          </div>
+        </div>
+
+        <div class="field-group">
+          <label>Harga Produk <span class="req">*</span></label>
+          <div class="price-wrap">
+            <span class="currency">RM</span>
+            <input
+              type="text"
+              id="hargaProduk"
+              placeholder="0"
+              inputmode="numeric"
+            />
+          </div>
+          <div class="field-error" id="hargaError">
+            ⚠ Harga produk wajib diisi dan harus berupa angka.
+          </div>
+        </div>
+
+        <div class="field-group">
+          <label>Nomor WhatsApp <span class="req">*</span></label>
+          <div class="wa-wrap">
+            <span class="prefix">📱</span>
+            <input
+              type="text"
+              id="nomorWA"
+              placeholder="08xxxxxxxxxx"
+              inputmode="numeric"
+              maxlength="15"
+            />
+          </div>
+          <div class="field-hint">
+            Gunakan angka saja, tanpa spasi atau tanda hubung.
+          </div>
+          <div class="field-error" id="waError">
+            ⚠ Nomor WhatsApp harus berupa angka dan minimal 9 digit.
+          </div>
+        </div>
+      </div>
+
+      <button class="submit-btn" id="submitBtn" onclick="submitForm()">
+        <div class="btn-inner">
+          <span>🚀</span>
+          <span>Upload Produk</span>
+        </div>
+      </button>
+    </div>
+
+    <div class="toast" id="toast"></div>
+
+    <div class="success-overlay" id="successOverlay">
+      <div class="success-anim">✅</div>
+      <h2>Produk Berhasil<br />Diunggah!</h2>
+      <p id="successDetail">Produk kamu sudah siap ditampilkan.</p>
+      <button class="upload-again" onclick="resetForm()">
+        + Upload Produk Lain
+      </button>
+    </div>
+
+    <script src="js/navbar.js"></script>
+    <script src="js/upload-produk.js"></script>
+  </body>
+</html>

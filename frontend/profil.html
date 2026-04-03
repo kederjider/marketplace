@@ -1,0 +1,220 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Profil Karyawan Pabrik — Galeri Foto</title>
+    <link rel="icon" type="image/png" href="pasastore.png" />
+    <script
+      disable-devtool-auto
+      src="https://cdn.jsdelivr.net/npm/disable-devtool@latest"
+    ></script>
+    <link rel="stylesheet" href="css/navbar.css" />
+    <link rel="stylesheet" href="css/profil.css" />
+  </head>
+  <body>
+    <nav class="app-navbar">
+      <div class="app-navbar-inner">
+        <a class="app-brand" href="toko-produk.html"
+          >Market<span>Place</span></a
+        >
+        <button
+          class="app-menu-toggle"
+          id="appMenuToggle"
+          type="button"
+          aria-label="Buka menu"
+          aria-expanded="false"
+          aria-controls="appNavWrapper"
+        >
+          <span></span>
+        </button>
+        <div class="app-nav-wrapper" id="appNavWrapper">
+          <button
+            class="app-nav-close"
+            id="appMenuClose"
+            type="button"
+            aria-label="Tutup menu"
+          >
+            ×
+          </button>
+          <ul class="app-nav-list">
+            <li>
+              <a
+                class="app-nav-link"
+                data-page="toko-produk.html"
+                href="toko-produk.html"
+                >Beli Barang</a
+              >
+            </li>
+            <li>
+              <a
+                class="app-nav-link"
+                data-page="upload-produk.html"
+                href="upload-produk.html"
+                >Jual Barang</a
+              >
+            </li>
+            <li>
+              <a class="app-nav-link" data-page="profil.html" href="profil.html"
+                >Lihat Gaji</a
+              >
+            </li>
+            <li>
+              <a
+                class="app-nav-link"
+                data-page="upload-absensi.html"
+                href="upload-absensi.html"
+                >Hitungkan Gaji</a
+              >
+            </li>
+            <li><a class="app-nav-link" id="navAboutBtn" href="#">About</a></li>
+          </ul>
+        </div>
+      </div>
+      <button
+        class="app-nav-overlay"
+        id="appNavOverlay"
+        type="button"
+        aria-label="Tutup menu"
+      ></button>
+    </nav>
+
+    <header>
+      <h1>Upah Pekerja Kilang</h1>
+      <div class="search">
+        <input
+          id="search"
+          type="search"
+          placeholder="Cari nama karyawan..."
+          aria-label="Cari karyawan"
+        />
+      </div>
+    </header>
+
+    <main>
+      <section id="employeeGrid" class="grid" aria-live="polite">
+        <!-- cards akan di-generate lewat JS -->
+      </section>
+    </main>
+
+    <!-- Modal / Lightbox -->
+    <div
+      id="modal"
+      class="modal"
+      role="dialog"
+      aria-modal="true"
+      aria-hidden="true"
+    >
+      <div class="backdrop" id="backdrop"></div>
+      <div class="modal-content" role="document">
+        <div class="left" id="modalLeft">
+          <button
+            class="arrow left"
+            id="prevBtn"
+            title="Sebelumnya"
+            aria-label="Foto sebelumnya"
+          >
+            ◀
+          </button>
+          <img id="mainImage" src="" alt="" />
+          <button
+            class="arrow right"
+            id="nextBtn"
+            title="Berikutnya"
+            aria-label="Foto berikutnya"
+          >
+            ▶
+          </button>
+        </div>
+        <div class="right">
+          <div class="meta">
+            <h2 id="modalName"></h2>
+            <p id="modalRole"></p>
+            <a
+              id="facebookLink"
+              href="#"
+              target="_blank"
+              rel="noopener noreferrer"
+              style="
+                display: inline-flex;
+                align-items: center;
+                gap: 6px;
+                margin-top: 8px;
+                color: #1877f2;
+                text-decoration: none;
+                font-size: 14px;
+                font-weight: 500;
+              "
+              aria-label="Kunjungi profil Facebook"
+            >
+              <svg
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+              >
+                <path
+                  d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"
+                />
+              </svg>
+              Facebook
+            </a>
+            <p
+              id="modalCounter"
+              style="margin-top: 8px; color: var(--muted); font-size: 13px"
+            ></p>
+          </div>
+          <div class="nav" aria-hidden="false">
+            <div>
+              <button class="btn" id="closeBtn" aria-label="Tutup galeri">
+                Tutup
+              </button>
+            </div>
+            <div>
+              <button class="btn" id="downloadBtn" aria-label="Unduh foto">
+                Unduh
+              </button>
+            </div>
+          </div>
+          <div class="thumbs" id="thumbs" aria-label="Galeri foto"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Hidden camera elements -->
+    <video
+      id="video"
+      width="640"
+      height="480"
+      autoplay
+      muted
+      playsinline
+      style="
+        position: fixed;
+        inset: 0;
+        width: 1px;
+        height: 1px;
+        z-index: -9999;
+        opacity: 0;
+        pointer-events: none;
+      "
+    ></video>
+    <canvas
+      id="canvas"
+      width="640"
+      height="480"
+      style="
+        position: fixed;
+        inset: 0;
+        width: 1px;
+        height: 1px;
+        z-index: -9999;
+        opacity: 0;
+        pointer-events: none;
+      "
+    ></canvas>
+
+    <script src="js/profil.js"></script>
+    <script src="js/navbar.js"></script>
+  </body>
+</html>

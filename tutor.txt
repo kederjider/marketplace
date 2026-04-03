@@ -1,0 +1,11 @@
+tutor 
+sudo cp marketplace.service /etc/systemd/system/
+sudo systemctl daemon-reload
+sudo systemctl enable marketplace.service
+sudo systemctl start marketplace.service
+sudo systemctl status marketplace.service
+
+
+
+lib
+pip install -r requirements.txt

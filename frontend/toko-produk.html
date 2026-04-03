@@ -1,0 +1,285 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ParaStore — jaul apa aja</title>
+    <link rel="icon" type="image/png" href="pasastore.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/bootstrap.min.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.11.3/font/bootstrap-icons.min.css"
+    />
+    <link rel="stylesheet" href="css/navbar.css" />
+    <link rel="stylesheet" href="css/toko-produk.css" />
+  </head>
+  <body>
+    <nav class="app-navbar">
+      <div class="app-navbar-inner">
+        <a class="app-brand" href="toko-produk.html"
+          >Market<span>Place</span></a
+        >
+        <button
+          class="app-menu-toggle"
+          id="appMenuToggle"
+          type="button"
+          aria-label="Buka menu"
+          aria-expanded="false"
+          aria-controls="appNavWrapper"
+        >
+          <span></span>
+        </button>
+        <div class="app-nav-wrapper" id="appNavWrapper">
+          <button
+            class="app-nav-close"
+            id="appMenuClose"
+            type="button"
+            aria-label="Tutup menu"
+          >
+            ×
+          </button>
+          <ul class="app-nav-list">
+            <li>
+              <a
+                class="app-nav-link"
+                data-page="toko-produk.html"
+                href="toko-produk.html"
+                >Beli Barang</a
+              >
+            </li>
+            <li>
+              <a
+                class="app-nav-link"
+                data-page="upload-produk.html"
+                href="upload-produk.html"
+                >Jual Barang</a
+              >
+            </li>
+            <li>
+              <a class="app-nav-link" data-page="profil.html" href="profil.html"
+                >Lihat Gaji</a
+              >
+            </li>
+            <li>
+              <a
+                class="app-nav-link"
+                data-page="upload-absensi.html"
+                href="upload-absensi.html"
+                >Hitungkan Gaji</a
+              >
+            </li>
+            <li><a class="app-nav-link" id="navAboutBtn" href="#">About</a></li>
+          </ul>
+        </div>
+      </div>
+      <button
+        class="app-nav-overlay"
+        id="appNavOverlay"
+        type="button"
+        aria-label="Tutup menu"
+      ></button>
+    </nav>
+
+    <!-- ══════ NAVBAR ══════ -->
+    <nav class="navbar-custom">
+      <div class="container d-flex align-items-center gap-3">
+        <a
+          class="navbar-brand-text text-decoration-none text-white me-2"
+          href="#"
+        >
+          Tech<span>Store</span>
+        </a>
+        <div class="search-wrapper">
+          <i class="bi bi-search search-icon"></i>
+          <input
+            type="text"
+            id="searchInput"
+            placeholder="Cari produk, merek, kategori..."
+          />
+        </div>
+        <button class="cart-btn ms-1"><i class="bi bi-bag"></i></button>
+      </div>
+    </nav>
+
+    <!-- ══════ HERO ══════ -->
+    <div class="hero-banner">
+      <div class="container">
+        <div class="hero-badge">🔥 PROMO SPESIAL</div>
+        <h1>GPU & Aksesoris PC<br /><span>Terlengkap & Terpercaya</span></h1>
+        <p class="mb-0">Harga kompetitif · Garansi resmi · Pengiriman cepat</p>
+      </div>
+    </div>
+
+    <!-- ══════ CATEGORY BAR ══════ -->
+    <div class="category-bar">
+      <div class="container" style="overflow-x: auto; white-space: nowrap">
+        <button class="cat-pill active" data-cat="semua">
+          <i class="bi bi-grid-fill"></i> Semua
+        </button>
+        <button class="cat-pill" data-cat="gpu">
+          <i class="bi bi-gpu-card"></i> GPU / VGA
+        </button>
+        <button class="cat-pill" data-cat="aksesoris">
+          <i class="bi bi-tools"></i> Aksesoris
+        </button>
+        <button class="cat-pill" data-cat="ram">
+          <i class="bi bi-memory"></i> RAM
+        </button>
+        <button class="cat-pill" data-cat="storage">
+          <i class="bi bi-device-hdd"></i> Storage
+        </button>
+      </div>
+    </div>
+
+    <!-- ══════ PRODUCT GRID ══════ -->
+    <div class="container py-4">
+      <div class="section-title mb-3">
+        <i class="bi bi-fire text-danger"></i> Produk Unggulan
+      </div>
+
+      <div class="row g-3" id="productGrid">
+        <!-- cards injected by JS -->
+      </div>
+
+      <div class="no-results" id="noResults">
+        <i class="bi bi-search d-block mb-2"></i>
+        <p class="text-muted fw-bold">
+          Produk tidak ditemukan.<br />Coba kata kunci lain.
+        </p>
+      </div>
+    </div>
+
+    <!-- ══════ MODAL DETAIL ══════ -->
+    <div class="modal fade modal-detail" id="productModal" tabindex="-1">
+      <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="modalTitle">Detail Produk</h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+            ></button>
+          </div>
+          <div class="modal-body p-0">
+            <div class="row g-0">
+              <!-- LEFT: carousel -->
+              <div class="col-md-5 p-3 bg-light">
+                <div
+                  id="productCarousel"
+                  class="carousel slide carousel-custom"
+                  data-bs-ride="false"
+                >
+                  <div
+                    class="carousel-indicators"
+                    id="carouselIndicators"
+                  ></div>
+                  <div class="carousel-inner" id="carouselInner"></div>
+                  <button
+                    class="carousel-control-prev"
+                    type="button"
+                    data-bs-target="#productCarousel"
+                    data-bs-slide="prev"
+                  >
+                    <span class="carousel-control-prev-icon"></span>
+                  </button>
+                  <button
+                    class="carousel-control-next"
+                    type="button"
+                    data-bs-target="#productCarousel"
+                    data-bs-slide="next"
+                  >
+                    <span class="carousel-control-next-icon"></span>
+                  </button>
+                </div>
+                <div class="thumb-list" id="thumbList"></div>
+              </div>
+
+              <!-- RIGHT: info -->
+              <div class="col-md-7 p-4 d-flex flex-column">
+                <div class="mb-1">
+                  <span
+                    class="badge bg-warning text-dark fw-bold"
+                    id="modalCategory"
+                  ></span>
+                  <span
+                    class="badge ms-1"
+                    id="modalBadgeNew"
+                    style="
+                      display: none;
+                      background: var(--badge-new);
+                      color: #fff;
+                    "
+                    >Produk Baru</span
+                  >
+                </div>
+
+                <h5 class="modal-product-name mb-2" id="modalProductName"></h5>
+
+                <div class="d-flex align-items-center gap-2 mb-3">
+                  <div class="rating-stars" id="modalStars"></div>
+                  <span class="sold-tag" id="modalSold"></span>
+                  <span
+                    class="badge bg-secondary ms-auto"
+                    id="modalLocation"
+                    style="font-size: 0.72rem"
+                  ></span>
+                </div>
+
+                <div class="mb-3">
+                  <div class="modal-price" id="modalPrice"></div>
+                  <div class="d-flex align-items-center gap-2 mt-1">
+                    <span
+                      class="modal-original-price"
+                      id="modalOriginalPrice"
+                    ></span>
+                    <span class="modal-discount" id="modalDiscount"></span>
+                  </div>
+                </div>
+
+                <table class="table table-borderless spec-table mb-3">
+                  <tbody id="modalSpecs"></tbody>
+                </table>
+
+                <p
+                  class="text-muted mb-3"
+                  style="font-size: 0.88rem; line-height: 1.6"
+                  id="modalDesc"
+                ></p>
+
+                <div class="mt-auto d-flex flex-column gap-2">
+                  <a id="btnBeli" href="#" target="_blank" class="btn-wa">
+                    <i class="bi bi-whatsapp"></i> Beli via WhatsApp
+                  </a>
+                  <a
+                    id="btnTanya"
+                    href="#"
+                    target="_blank"
+                    class="btn-wa-outline"
+                  >
+                    <i class="bi bi-chat-dots"></i> Tanya Dulu
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══════ FOOTER ══════ -->
+    <footer>
+      &copy; 2026 <strong>ParaStore</strong> · GPU & Aksesoris PC Terpercaya ·
+      Hubungi kami via WhatsApp
+    </footer>
+
+    <script src="js/bootstrap.bundle.min.js"></script>
+    <script src="js/toko-produk.js"></script>
+    <script src="js/navbar.js"></script>
+  </body>
+</html>
