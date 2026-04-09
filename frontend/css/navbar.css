@@ -42,6 +42,9 @@ body.has-app-navbar {
 }
 
 .app-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
   color: var(--app-nav-text);
   text-decoration: none;
   font-weight: 800;
@@ -50,7 +53,19 @@ body.has-app-navbar {
   white-space: nowrap;
 }
 
-.app-brand span {
+.app-brand-logo {
+  width: 34px;
+  height: 34px;
+  object-fit: contain;
+  border-radius: 8px;
+}
+
+.app-brand-text {
+  display: inline-block;
+  line-height: 1;
+}
+
+.app-brand-text span {
   color: var(--app-nav-accent);
 }
 
@@ -165,6 +180,11 @@ body.has-app-navbar {
 
   body.has-app-navbar {
     padding-top: 60px;
+  }
+
+  .app-brand-logo {
+    width: 30px;
+    height: 30px;
   }
 
   .app-menu-toggle {

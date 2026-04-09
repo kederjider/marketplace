@@ -1,108 +1,6 @@
-// ======= DATA SAMPLE: Ganti URL foto & nama sesuai karyawan pabrikmu =======
-const employees = [
-  {
-    id: "e001",
-    name: "TOPURI",
-    role: "Zizer",
-    avatar: "/gambar/siluet pria.png",
-    photos: ["/upah/topuri/SlipGaji_TOPURI_FEBRUARY_2026.jpg"],
-    facebook: "/facebook",
-  },
-  {
-    id: "e002",
-    name: "WATI",
-    role: "Zizer",
-    avatar: "/gambar/siluet perempuan.png",
-    photos: [
-      "/upah/wati/SlipGaji_WATI_FEBRUARY_2026.jpg",
-      "https://picsum.photos/seed/siti2/1200/800",
-    ],
-    facebook: "/facebook",
-  },
-  {
-    id: "e003",
-    name: "ARISMAN",
-    role: "Zizer",
-    avatar: "/gambar/siluet pria.png",
-    photos: ["/upah/arisman/SlipGaji_ARISMAN_FEBRUARY_2026.jpg"],
-    facebook: "/facebook",
-  },
-  {
-    id: "e004",
-    name: "BAGOS",
-    role: "Grading Day",
-    avatar: "/gambar/siluet pria.png",
-    photos: ["/upah/bagos/SlipGaji_BAGOS_FEBRUARY_2026.jpg"],
-    facebook: "https://facebook.com/bagos",
-  },
-  {
-    id: "e005",
-    name: "NURUL AINY",
-    role: "Grading Day",
-    avatar: "/gambar/siluet perempuan.png",
-    photos: ["/upah/nurul ainy/SlipGaji_NURUL_AINY_FEBRUARY_2026.jpg"],
-    facebook: "https://facebook.com/nurul.ainy",
-  },
-  {
-    id: "e006",
-    name: "SUSANA SANUSI",
-    role: "Grading Day",
-    avatar: "/gambar/siluet perempuan.png",
-    photos: ["/upah/susana sanusi/SlipGaji_SUSANA_SANUSI_FEBRUARY_2026.jpg"],
-    facebook: "https://facebook.com/susana.sanusi",
-  },
-  {
-    id: "e007",
-    name: "NASIBAH",
-    role: "Grading Day",
-    avatar: "/gambar/siluet perempuan.png",
-    photos: ["/upah/nasibah/SlipGaji_NASIBAH_FEBRUARY_2026.jpg"],
-    facebook: "https://facebook.com/nasibah",
-  },
-  {
-    id: "e008",
-    name: "IRA",
-    role: "Lotari",
-    avatar: "/gambar/siluet perempuan.png",
-    photos: ["/upah/ira/SlipGaji_IRA_FEBRUARY_2026.jpg"],
-    facebook: "https://facebook.com/ira",
-  },
-  {
-    id: "e009",
-    name: "WARTO",
-    role: "Lotari",
-    avatar: "/gambar/siluet pria.png",
-    photos: ["/upah/warto/SlipGaji_WARTO_FEBRUARY_2026.jpg"],
-    facebook: "https://facebook.com/warto",
-  },
-  {
-    id: "e010",
-    name: "NANI",
-    role: "Pati",
-    avatar: "/gambar/siluet perempuan.png",
-    photos: ["/upah/nani/SlipGaji_NANI_FEBRUARY_2026.jpg"],
-    facebook: "https://facebook.com/nani",
-  },
-  {
-    id: "e011",
-    name: "MAMAT",
-    role: "Grading Day",
-    avatar: "/gambar/siluet pria.png",
-    photos: ["/upah/mamat/SlipGaji_MAMAT_FEBRUARY_2026.jpg"],
-    facebook: "https://facebook.com/mamat",
-  },
-  {
-    id: "e012",
-    name: "ERAS TANTOWI",
-    role: "Pati",
-    avatar: "/gambar/siluet pria.png",
-    photos: ["/upah/eras tantowi/SlipGaji_ERAS_TANTOWI_FEBRUARY_2026.jpg"],
-    facebook: "https://facebook.com/eras.tantowi",
-  },
-].map((employee) => ({
-  ...employee,
-  views: 0,
-}));
+let employees = [];
+const SEARCH_DEBOUNCE_MS = 140;
+let searchDebounceTimer = null;
 
 // ======= CACHE DOM =======
 const grid = document.getElementById("employeeGrid");
@@ -129,9 +27,10 @@ function formatViewsText(count) {
 
 function getModalRoleText(emp) {
   const roleText = emp.role || "";
+  const slipCount = `${emp.photos.length} slip`;
   return roleText
-    ? `${roleText} • ${formatViewsText(emp.views)}`
-    : formatViewsText(emp.views);
+    ? `${roleText} • ${slipCount} • ${formatViewsText(emp.views)}`
+    : `${slipCount} • ${formatViewsText(emp.views)}`;
 }
 
 async function hydrateViewsFromServer() {
@@ -191,6 +90,7 @@ function renderGrid(list) {
       <div class="info">
         <p class="name">${emp.name}</p>
         <p class="role">${emp.role}</p>
+        <p class="slips">${emp.photos.length} slip tersedia</p>
         <p class="views">${formatViewsText(emp.views)}</p>
       </div>
     `;
@@ -205,15 +105,6 @@ function openModal(emp) {
   currentIndex = 0;
   modalName.textContent = emp.name;
   modalRole.textContent = getModalRoleText(emp);
-
-  // Update Facebook link
-  const fbLink = document.getElementById("facebookLink");
-  if (emp.facebook) {
-    fbLink.href = "/facebook";
-    fbLink.style.display = "inline-flex";
-  } else {
-    fbLink.style.display = "none";
-  }
 
   modal.setAttribute("aria-hidden", "false");
   modal.classList.add("show");
@@ -298,19 +189,67 @@ modal.addEventListener("click", (e) => {
 });
 
 function filterAndRender(query) {
-  const q = query.trim().toLowerCase();
+  const q = normalizeSearchText(query);
   if (!q) renderGrid(employees);
   else {
-    const filtered = employees.filter((e) => e.name.toLowerCase().includes(q));
+    const filtered = employees.filter((e) => {
+      const inName = normalizeSearchText(e.name).includes(q);
+      const inRole = normalizeSearchText(e.role).includes(q);
+      return inName || inRole;
+    });
     renderGrid(filtered);
   }
 }
 
-searchInput.addEventListener("input", (e) => filterAndRender(e.target.value));
+function normalizeSearchText(text) {
+  return (text || "")
+    .toString()
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
+searchInput.addEventListener("input", (e) => {
+  const value = e.target.value;
+  window.clearTimeout(searchDebounceTimer);
+  searchDebounceTimer = window.setTimeout(() => {
+    filterAndRender(value);
+  }, SEARCH_DEBOUNCE_MS);
+});
+
+async function hydrateProfilesFromServer() {
+  try {
+    const res = await fetch("/api/profiles");
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    const data = await res.json();
+    const profiles = Array.isArray(data?.profiles) ? data.profiles : [];
+
+    employees = profiles
+      .filter(
+        (p) =>
+          p && p.id && p.name && Array.isArray(p.photos) && p.photos.length,
+      )
+      .map((p) => ({
+        id: String(p.id),
+        name: String(p.name),
+        role: p.role ? String(p.role) : "Pekerja Kilang",
+        avatar: p.avatar ? String(p.avatar) : "/gambar/siluet pria.png",
+        photos: p.photos.map((photo) => String(photo)),
+        views: 0,
+      }))
+      .sort((a, b) => a.name.localeCompare(b.name, "id"));
+  } catch (err) {
+    console.log("Gagal memuat data profil dari server:", err);
+    employees = [];
+  }
+}
 
 async function initializePage() {
+  await hydrateProfilesFromServer();
   await hydrateViewsFromServer();
-  renderGrid(employees);
+  filterAndRender(searchInput.value);
 }
 
 initializePage();

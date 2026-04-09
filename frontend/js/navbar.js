@@ -61,9 +61,7 @@
     aboutBtn.addEventListener("click", function (event) {
       event.preventDefault();
       closeMobileMenu();
-      window.alert(
-        "Marketplace mini ini menyediakan menu beli barang, jual barang, lihat gaji, dan hitungkan gaji.",
-      );
+      window.location.href = "/about";
     });
   }
 })();

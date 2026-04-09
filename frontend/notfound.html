@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>404 - Halaman Tidak Ditemukan</title>
+    <style>
+      :root {
+        --bg: #0b1320;
+        --card: #121c2e;
+        --text: #e6edf7;
+        --muted: #9fb0c8;
+        --line: #2d3a52;
+        --accent: #1e90ff;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        min-height: 100vh;
+        font-family: "Segoe UI", Tahoma, sans-serif;
+        color: var(--text);
+        background: radial-gradient(
+          circle at top right,
+          #1a2740 0%,
+          var(--bg) 60%
+        );
+        display: grid;
+        place-items: center;
+        padding: 24px;
+      }
+      .card {
+        width: min(640px, 100%);
+        border: 1px solid var(--line);
+        border-radius: 16px;
+        background: linear-gradient(180deg, #16243c, var(--card));
+        box-shadow: 0 16px 40px rgba(0, 0, 0, 0.35);
+        padding: 28px;
+      }
+      .code {
+        display: inline-block;
+        font-weight: 700;
+        letter-spacing: 0.06em;
+        color: #c6d6ec;
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        padding: 6px 12px;
+        margin-bottom: 14px;
+      }
+      h1 {
+        margin: 0 0 10px;
+        font-size: 30px;
+        line-height: 1.2;
+      }
+      p {
+        margin: 0;
+        color: var(--muted);
+        line-height: 1.6;
+        font-size: 16px;
+      }
+      a {
+        display: inline-block;
+        margin-top: 20px;
+        text-decoration: none;
+        color: white;
+        background: var(--accent);
+        padding: 10px 14px;
+        border-radius: 10px;
+        font-weight: 600;
+      }
+      a:hover {
+        filter: brightness(1.08);
+      }
+    </style>
+  </head>
+  <body>
+    <main class="card">
+      <span class="code">ERROR 404</span>
+      <h1>Halaman tidak ditemukan</h1>
+      <p>
+        URL yang Anda akses tidak tersedia atau tidak valid. Jika ini adalah
+        halaman resmi, silakan kembali ke beranda dan coba lagi.
+      </p>
+      <a href="/">Kembali ke Beranda</a>
+    </main>
+  </body>
+</html>

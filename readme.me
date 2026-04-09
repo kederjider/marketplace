@@ -1,0 +1,223 @@
+# Marketplace App - Tutorial Penggunaan (Ubuntu Server)
+
+Dokumen ini berisi tutorial deploy dan update project marketplace di server Ubuntu, dengan alur:
+1. Setup SSH ke GitHub sekali saja
+2. Clone repository sekali saja
+3. Jika ada update kode, cukup git pull
+
+## 1. Persiapan di Ubuntu
+
+Install paket yang dibutuhkan:
+
+```bash
+sudo apt update
+sudo apt install -y git python3 python3-venv python3-pip
+```
+
+Set identitas Git (sekali saja):
+
+```bash
+git config --global user.name "Nama Anda"
+git config --global user.email "email@anda.com"
+```
+
+## 2. Setup SSH GitHub (sekali saja)
+
+Generate SSH key baru di server:
+
+```bash
+ssh-keygen -t ed25519 -C "email@anda.com"
+```
+
+Saat ditanya lokasi file, tekan Enter (default: ~/.ssh/id_ed25519).
+
+Jalankan ssh-agent lalu masukkan private key:
+
+```bash
+eval "$(ssh-agent -s)"
+ssh-add ~/.ssh/id_ed25519
+```
+
+Tampilkan public key:
+
+```bash
+cat ~/.ssh/id_ed25519.pub
+```
+
+Copy output key tersebut, lalu tambahkan ke GitHub:
+1. Buka GitHub
+2. Masuk ke Settings > SSH and GPG keys > New SSH key
+3. Paste key dari server Ubuntu
+
+Test koneksi SSH:
+
+```bash
+ssh -T git@github.com
+```
+
+Kalau berhasil, akan muncul pesan sukses autentikasi dari GitHub.
+
+## 3. Clone project (sekali saja)
+
+Masuk ke folder target, contoh:
+
+```bash
+cd /var/www
+```
+
+Clone pakai URL SSH repo Anda:
+
+```bash
+git clone git@github.com:USERNAME/NAMA_REPO.git marketplace
+cd marketplace
+```
+
+## 4. Setup environment aplikasi
+
+Buat virtual environment:
+
+```bash
+python3 -m venv .venv
+```
+
+Aktifkan:
+
+```bash
+source .venv/bin/activate
+```
+
+Install dependency:
+
+```bash
+pip install -r requirements.txt
+```
+
+Buat file .env (wajib untuk data sensitif):
+
+```bash
+nano .env
+```
+
+Contoh isi .env:
+
+```env
+SECRET_KEY=isi_secret_key_anda
+API_KEY=isi_api_key_anda
+```
+
+Catatan:
+- File .env sudah di-ignore oleh .gitignore
+- Jangan simpan credential penting ke file yang di-commit
+
+## 5. Menjalankan aplikasi
+
+Untuk tes manual:
+
+```bash
+source .venv/bin/activate
+python3 main.py
+```
+
+Atau jika memakai systemd service:
+
+```bash
+sudo systemctl daemon-reload
+sudo systemctl restart marketplace
+sudo systemctl status marketplace --no-pager
+```
+
+## 6. Update rutin saat ada perubahan kode
+
+Saat ada commit baru di GitHub, di server cukup jalankan:
+
+```bash
+cd /var/www/marketplace
+git pull origin main
+source .venv/bin/activate
+pip install -r requirements.txt
+sudo systemctl restart marketplace
+```
+
+Jika branch utama bukan main, ganti sesuai branch Anda (misalnya master).
+
+## 7. Troubleshooting cepat
+
+1. Permission denied (publickey) saat git pull
+   - Pastikan SSH key server sudah didaftarkan di GitHub
+   - Cek agent: ssh-add -l
+   - Test ulang: ssh -T git@github.com
+
+2. Dependency error setelah pull
+   - Aktifkan venv dulu: source .venv/bin/activate
+   - Jalankan ulang: pip install -r requirements.txt
+
+3. Service tidak naik
+   - Cek log: sudo journalctl -u marketplace -n 100 --no-pager
+
+## 8. Catatan keamanan
+
+- Jangan commit .env, token, password, atau private key
+- Simpan credential hanya di .env atau secret manager server
+- Lakukan rotasi key jika pernah terlanjur tersebar
+
+## 9. Pasang Nginx Reverse Proxy (Ubuntu, siap copy)
+
+Catatan:
+- File nginx.conf di project ini sudah berisi:
+   - Reverse proxy ke localhost:5000
+   - Redirect 80 -> 443
+   - SSL path cert.pem dan private.key
+   - Method hanya GET dan POST
+   - URL ngasal/mencurigakan -> 404 + kirim notfound.html
+
+Jalankan perintah berikut di Ubuntu server:
+
+```bash
+sudo apt update
+sudo apt install -y nginx
+
+# Buat folder SSL placeholder (isi cert.pem/private.key nanti)
+sudo mkdir -p /etc/nginx/ssl
+
+# Copy file config dari folder project
+cd /var/www/marketplace
+sudo cp nginx.conf /etc/nginx/sites-available/marketplace
+
+# Aktifkan site
+sudo ln -sf /etc/nginx/sites-available/marketplace /etc/nginx/sites-enabled/marketplace
+
+# Optional: nonaktifkan default site
+sudo rm -f /etc/nginx/sites-enabled/default
+
+# Test config
+sudo nginx -t
+
+# Reload nginx
+sudo systemctl enable nginx
+sudo systemctl restart nginx
+sudo systemctl status nginx --no-pager
+```
+
+Pastikan file custom 404 tersedia di path ini:
+
+```bash
+ls -lah /var/www/marketplace/notfound.html
+```
+
+Jika SSL cert belum ada, isi sendiri file berikut sesuai server Anda:
+
+```bash
+/etc/nginx/ssl/cert.pem
+/etc/nginx/ssl/private.key
+```
+
+Setelah ada update kode dari GitHub:
+
+```bash
+cd /var/www/marketplace
+git pull origin main
+source .venv/bin/activate
+pip install -r requirements.txt
+sudo systemctl restart marketplace
+sudo systemctl reload nginx
+```
