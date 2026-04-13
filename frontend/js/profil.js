@@ -29,8 +29,35 @@ function getModalRoleText(emp) {
   const roleText = emp.role || "";
   const slipCount = `${emp.photos.length} slip`;
   return roleText
-    ? `${roleText} • ${slipCount} • ${formatViewsText(emp.views)}`
-    : `${slipCount} • ${formatViewsText(emp.views)}`;
+    ? `${emp.name} • ${roleText} • ${slipCount} • ${formatViewsText(emp.views)}`
+    : `${emp.name} • ${slipCount} • ${formatViewsText(emp.views)}`;
+}
+
+function getPhotoFileName(photoUrl) {
+  if (!photoUrl) return "foto";
+  const cleanUrl = String(photoUrl).split(/[?#]/)[0] || "";
+  const fileName = cleanUrl.split("/").pop() || "foto";
+  try {
+    return decodeURIComponent(fileName);
+  } catch {
+    return fileName;
+  }
+}
+
+function toPhotoTitle(photoUrl) {
+  const fileName = getPhotoFileName(photoUrl);
+  const baseName = fileName.replace(/\.[^.]+$/, "");
+  const normalized = baseName
+    .replace(/[_-]+/g, " ")
+    .replace(/\s+/g, " ")
+    .trim();
+  return normalized || "foto";
+}
+
+function getPhotoExtension(photoUrl) {
+  const fileName = getPhotoFileName(photoUrl);
+  const match = fileName.match(/\.([a-zA-Z0-9]+)$/);
+  return match ? match[1].toLowerCase() : "jpg";
 }
 
 async function hydrateViewsFromServer() {
@@ -103,7 +130,7 @@ function renderGrid(list) {
 function openModal(emp) {
   currentEmployee = emp;
   currentIndex = 0;
-  modalName.textContent = emp.name;
+  modalName.textContent = "";
   modalRole.textContent = getModalRoleText(emp);
 
   modal.setAttribute("aria-hidden", "false");
@@ -140,8 +167,11 @@ function buildGallery() {
 
 function updateMainImage() {
   const url = currentEmployee.photos[currentIndex];
+  const photoTitle = toPhotoTitle(url);
+  const photoExt = getPhotoExtension(url);
   mainImage.src = url;
-  mainImage.alt = `${currentEmployee.name} - Foto ${currentIndex + 1}`;
+  mainImage.alt = `${currentEmployee.name} - ${photoTitle}`;
+  modalName.textContent = photoTitle;
   modalCounter.textContent = `${currentIndex + 1} / ${currentEmployee.photos.length}`;
   Array.from(thumbs.children).forEach((el) => el.classList.remove("active"));
   const active = thumbs.querySelector(`[data-i="${currentIndex}"]`);
@@ -149,7 +179,7 @@ function updateMainImage() {
   downloadBtn.onclick = () => {
     const a = document.createElement("a");
     a.href = url;
-    a.download = `${currentEmployee.name.replace(/\s+/g, "_")}_foto_${currentIndex + 1}.jpg`;
+    a.download = `${photoTitle.replace(/\s+/g, "_")}.${photoExt}`;
     document.body.appendChild(a);
     a.click();
     document.body.removeChild(a);

@@ -122,8 +122,6 @@ ketEl.addEventListener("input", () => {
 });
 
 listen("namaKaryawan", "namaError");
-listenDate("tanggal", "tanggalError");
-listenDate("jam", "jamError");
 
 function listen(id, errId) {
   document.getElementById(id).addEventListener("input", function () {
@@ -188,20 +186,10 @@ async function handleSubmit() {
   }
 
   const nama = document.getElementById("namaKaryawan");
-  const tgl = document.getElementById("tanggal");
-  const jam = document.getElementById("jam");
   const ket = document.getElementById("keterangan");
 
   if (!nama.value.trim()) {
     showErr("namaError", nama);
-    ok = false;
-  }
-  if (!tgl.value) {
-    showErr("tanggalError", tgl);
-    ok = false;
-  }
-  if (!jam.value) {
-    showErr("jamError", jam);
     ok = false;
   }
   if (!ket.value.trim()) {
@@ -235,8 +223,6 @@ async function handleSubmit() {
   try {
     const formData = new FormData();
     formData.append("namaKaryawan", nama.value.trim());
-    formData.append("tanggal", tgl.value);
-    formData.append("jam", jam.value);
     formData.append("keterangan", ket.value.trim());
     formData.append("depan", dataUrlToFile(state.depan, "depan.jpg"));
     formData.append("belakang", dataUrlToFile(state.belakang, "belakang.jpg"));
@@ -254,17 +240,7 @@ async function handleSubmit() {
     clearInterval(iv);
     pf.style.width = "100%";
 
-    const d = new Date(tgl.value + "T" + jam.value);
-    const dateStr = d.toLocaleDateString("id-ID", {
-      weekday: "long",
-      year: "numeric",
-      month: "long",
-      day: "numeric",
-    });
-
     document.getElementById("sName").textContent = nama.value.trim();
-    document.getElementById("sDate").textContent =
-      `${dateStr} — ${jam.value} WIB`;
     document.getElementById("sNote").textContent = ket.value.trim();
     document.getElementById("sThumbs").innerHTML = `
       <div class="success-thumb">
@@ -296,10 +272,6 @@ function resetAll() {
   ["namaKaryawan", "keterangan"].forEach(
     (id) => (document.getElementById(id).value = ""),
   );
-  document.getElementById("tanggal").value = new Date()
-    .toISOString()
-    .split("T")[0];
-  document.getElementById("jam").value = "";
   ccEl.textContent = "0 / 500";
   document
     .querySelectorAll(".field-error,.photo-field-error")
@@ -309,10 +281,6 @@ function resetAll() {
     .forEach((e) => e.classList.remove("error", "valid"));
   document.getElementById("successOverlay").classList.remove("open");
 }
-
-document.getElementById("tanggal").value = new Date()
-  .toISOString()
-  .split("T")[0];
 
 window.openLightbox = openLightbox;
 window.closeLightbox = closeLightbox;
