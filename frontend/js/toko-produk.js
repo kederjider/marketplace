@@ -1,6 +1,6 @@
 const DEFAULT_WA_NUMBER = "628123456789";
 
-const products = [
+let products = [
   {
     id: 1,
     name: "Jual Akun Game Moblie Legends",
@@ -477,6 +477,65 @@ function goSlide(index, el) {
   el.classList.add("active");
 }
 
+function buildAutoProductFromImage(fileName, imageUrl, id) {
+  const cleanName = fileName
+    .replace(/\.[^.]+$/, "")
+    .replace(/[\-_]+/g, " ")
+    .trim();
+  return {
+    id,
+    name: cleanName || `Produk ${id}`,
+    category: "aksesoris",
+    price: 0,
+    originalPrice: null,
+    discount: null,
+    rating: 5.0,
+    sold: 0,
+    location: "parasmark",
+    waNumber: DEFAULT_WA_NUMBER,
+    isNew: true,
+    isPromo: false,
+    images: [imageUrl],
+    specs: [["Sumber", "Folder jual"]],
+    desc: "Produk otomatis dari folder jual. Silakan hubungi penjual untuk detail harga dan stok.",
+  };
+}
+
+async function loadProductsFromJualDirectory() {
+  try {
+    const resp = await fetch("/api/jual-images");
+    if (!resp.ok) return;
+
+    const data = await resp.json();
+    const images = Array.isArray(data.images) ? data.images : [];
+
+    const existing = new Set(
+      products
+        .flatMap((p) => p.images || [])
+        .map((img) => decodeURIComponent(String(img).toLowerCase())),
+    );
+
+    let nextId = products.reduce((max, p) => Math.max(max, p.id || 0), 0) + 1;
+
+    for (const item of images) {
+      const imageUrl = String(item.url || "").trim();
+      const fileName = String(item.name || "").trim();
+      if (!imageUrl || !fileName) continue;
+
+      const key = decodeURIComponent(imageUrl.toLowerCase());
+      if (existing.has(key)) continue;
+
+      products.push(buildAutoProductFromImage(fileName, imageUrl, nextId));
+      existing.add(key);
+      nextId += 1;
+    }
+
+    filterProducts();
+  } catch (_) {
+    // Keep static product list when API is unavailable.
+  }
+}
+
 document
   .getElementById("productCarousel")
   .addEventListener("slid.bs.carousel", (e) => {
@@ -485,6 +544,7 @@ document
   });
 
 renderAll(products);
+loadProductsFromJualDirectory();
 
 window.openModal = openModal;
 window.goSlide = goSlide;

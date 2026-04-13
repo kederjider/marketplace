@@ -515,5 +515,27 @@ def get_profiles():
     return jsonify({"profiles": profiles})
 
 
+@app.get("/api/jual-images")
+def get_jual_images():
+    jual_dir = FRONTEND_DIR / "jual"
+    if not jual_dir.exists():
+        return jsonify({"images": []})
+
+    files = sorted(
+        [f for f in jual_dir.iterdir() if f.is_file() and f.suffix.lower() in ALLOWED_IMAGE_EXTENSIONS],
+        key=lambda p: p.name.lower(),
+    )
+
+    images = [
+        {
+            "name": file.name,
+            "url": f"/jual/{quote(file.name)}",
+        }
+        for file in files
+    ]
+
+    return jsonify({"images": images})
+
+
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=int(os.getenv("PORT", "5000")), debug=True)
