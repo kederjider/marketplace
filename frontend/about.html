@@ -4,6 +4,8 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>About - Kontak</title>
+    <link rel="icon" type="image/png" href="pasastore.png" />
+    <link rel="stylesheet" href="css/navbar.css" />
     <style>
       :root {
         --bg: #f4f7fb;
@@ -23,9 +25,14 @@
         background: linear-gradient(135deg, #f0fdfa 0%, #eff6ff 100%);
         color: var(--text);
         min-height: 100vh;
+        padding: 24px;
+        padding-top: 92px;
+      }
+
+      main {
         display: grid;
         place-items: center;
-        padding: 24px;
+        min-height: calc(100vh - 92px);
       }
 
       .card {
@@ -84,75 +91,150 @@
     </style>
   </head>
   <body>
-    <main class="card">
-      <h1>Tentang ParaStore</h1>
-      <p class="subtitle" style="margin-bottom: 16px">
-        Platform terpadu untuk karyawan Parasmark
-      </p>
+    <nav class="app-navbar">
+      <div class="app-navbar-inner">
+        <a class="app-brand" href="toko-produk.html">
+          <img
+            class="app-brand-logo"
+            src="pasastore.png"
+            alt="Logo ParaStore"
+          />
+          <span class="app-brand-text">Para<span>Store</span></span>
+        </a>
+        <button
+          class="app-menu-toggle"
+          id="appMenuToggle"
+          type="button"
+          aria-label="Buka menu"
+          aria-expanded="false"
+          aria-controls="appNavWrapper"
+        >
+          <span></span>
+        </button>
+        <div class="app-nav-wrapper" id="appNavWrapper">
+          <button
+            class="app-nav-close"
+            id="appMenuClose"
+            type="button"
+            aria-label="Tutup menu"
+          >
+            ×
+          </button>
+          <ul class="app-nav-list">
+            <li>
+              <a
+                class="app-nav-link"
+                data-page="toko-produk.html"
+                href="toko-produk.html"
+                >Beli Barang</a
+              >
+            </li>
+            <li>
+              <a
+                class="app-nav-link"
+                data-page="upload-produk.html"
+                href="upload-produk.html"
+                >Jual Barang</a
+              >
+            </li>
+            <li>
+              <a class="app-nav-link" data-page="profil.html" href="profil.html"
+                >Lihat Gaji</a
+              >
+            </li>
+            <li>
+              <a
+                class="app-nav-link"
+                data-page="upload-absensi.html"
+                href="upload-absensi.html"
+                >Hitungkan Gaji</a
+              >
+            </li>
+            <li><a class="app-nav-link" id="navAboutBtn" href="#">About</a></li>
+          </ul>
+        </div>
+      </div>
+      <button
+        class="app-nav-overlay"
+        id="appNavOverlay"
+        type="button"
+        aria-label="Tutup menu"
+      ></button>
+    </nav>
 
-      <div
-        style="
-          background: #eff6ff;
-          border-left: 4px solid var(--accent);
-          padding: 12px 16px;
-          border-radius: 8px;
-          margin-bottom: 24px;
-          font-size: 14px;
-          line-height: 1.6;
-        "
-      >
-        <p style="margin: 0">
-          <strong>ParaStore</strong> adalah marketplace khusus pekerja Parasmark
-          yang menyediakan:
+    <main>
+      <section class="card">
+        <h1>Tentang ParaStore</h1>
+        <p class="subtitle" style="margin-bottom: 16px">
+          Platform terpadu untuk karyawan Parasmark
         </p>
-        <ul style="margin: 8px 0; padding-left: 20px">
-          <li>
-            <strong>Lihat Gaji:</strong> Pantau slip gaji dan riwayat pembayaran
-            Anda dengan mudah
+
+        <div
+          style="
+            background: #eff6ff;
+            border-left: 4px solid var(--accent);
+            padding: 12px 16px;
+            border-radius: 8px;
+            margin-bottom: 24px;
+            font-size: 14px;
+            line-height: 1.6;
+          "
+        >
+          <p style="margin: 0">
+            <strong>ParaStore</strong> adalah marketplace khusus pekerja
+            Parasmark yang menyediakan:
+          </p>
+          <ul style="margin: 8px 0; padding-left: 20px">
+            <li>
+              <strong>Lihat Gaji:</strong> Pantau slip gaji dan riwayat
+              pembayaran Anda dengan mudah
+            </li>
+            <li>
+              <strong>Hitung Gaji:</strong> Upload absensi untuk perhitungan
+              upah yang transparan dan akurat
+            </li>
+            <li>
+              <strong>Jual & Beli Barang Bekas:</strong> Promosi dan transaksi
+              produk bekas berkualitas sesama karyawan dengan harga terjangkau
+            </li>
+          </ul>
+          <p style="margin: 8px 0 0">
+            Semua dalam satu platform, aman, dan terpercaya.
+          </p>
+        </div>
+
+        <p style="color: var(--muted); font-size: 14px; margin-bottom: 16px">
+          Hubungi kami melalui:
+        </p>
+
+        <ul class="contact-list">
+          <li class="contact-item">
+            <div class="label">WhatsApp</div>
+            <div class="value">
+              <a
+                href="https://wa.me/60137009088"
+                target="_blank"
+                rel="noopener noreferrer"
+                >+60 13-700 9088</a
+              >
+            </div>
           </li>
-          <li>
-            <strong>Hitung Gaji:</strong> Upload absensi untuk perhitungan upah
-            yang transparan dan akurat
-          </li>
-          <li>
-            <strong>Jual & Beli Barang Bekas:</strong> Promosi dan transaksi
-            produk bekas berkualitas sesama karyawan dengan harga terjangkau
+
+          <li class="contact-item">
+            <div class="label">Telegram</div>
+            <div class="value">
+              <a
+                href="https://t.me/mega88bot"
+                target="_blank"
+                rel="noopener noreferrer"
+                >@mega88bot</a
+              >
+            </div>
           </li>
         </ul>
-        <p style="margin: 8px 0 0">
-          Semua dalam satu platform, aman, dan terpercaya.
-        </p>
-      </div>
-
-      <p style="color: var(--muted); font-size: 14px; margin-bottom: 16px">
-        Hubungi kami melalui:
-      </p>
-
-      <ul class="contact-list">
-        <li class="contact-item">
-          <div class="label">WhatsApp</div>
-          <div class="value">
-            <a
-              href="https://wa.me/60137009088"
-              target="_blank"
-              rel="noopener noreferrer"
-              >+60 13-700 9088</a
-            >
-          </div>
-        </li>
-
-        <li class="contact-item">
-          <div class="label">Telegram</div>
-          <div class="value">
-            <a
-              href="https://t.me/mega88bot"
-              target="_blank"
-              rel="noopener noreferrer"
-              >@mega88bot</a
-            >
-          </div>
-        </li>
-      </ul>
+      </section>
     </main>
+
+    <script src="js/navbar.js"></script>
   </body>
 </html>

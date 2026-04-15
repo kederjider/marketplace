@@ -3,49 +3,62 @@ const DEFAULT_WA_NUMBER = "628123456789";
 let products = [
   {
     id: 1,
-    name: "Jual Akun Game Moblie Legends",
-    category: "gpu",
-    price: 95,
-    originalPrice: 120,
-    discount: 19,
-    rating: 5.0,
-    sold: 3,
-    location: "Parasmark",
-    waNumber: "60137009088",
-    isNew: true,
-    isPromo: true,
-    images: ["jual/GRANGER PRIME.png", "jual/GRANGER PRIME SKIN.png"],
-    specs: [
-      ["Nama", "GRANGER PRIME"],
-      ["Skin", "228"],
-      ["Hero", "117"],
-      ["Ex", "72 Glory"],
-      ["Spek Setara Dengan", "15988 Diamond"],
-    ],
-    desc: "🔥 PROMO SPESIAL AKUN MOBILE LEGENDS MURAH! 🔥 Dijual akun Mobile Legends dengan spek tinggi dan koleksi skin keren! Cocok buat push rank atau kolektor skin.  ✨ Detail Akun:  Rank tinggi + Mythic Glory 🏆  Banyak skin keren (Epic, Luckybox, dll)  Skin PRIME & kolektor langka  Emote dan item lengkap  Total skin banyak (siap dipakai tanpa grind lagi)  💰 Harga Promo: 95 Ringgit  120 Ringgit ❌ (harga normal) 🎯 Hemat besar! Langsung pakai tanpa ribet build dari awal  📩 Minat? Langsung chat sebelum keambil!",
-  },
-  {
-    id: 2,
-    name: "YU ZHONG PRIME",
-    category: "gpu",
-    price: 200,
-    originalPrice: null,
-    discount: null,
-    rating: 4.8,
-    sold: 1,
+    name: "Jual HP Redmi 12c 6GB/128GB",
+    category: "aksesoris",
+    price: 270,
+    originalPrice: 450,
+    discount: 40,
+    rating: 4.9,
+    sold: 0,
     location: "parasmark",
     waNumber: "60137009088",
     isNew: false,
     isPromo: true,
-    images: ["jual/YU ZHONG PRIME.png", "jual/YU ZHONG PRIME SKIN.png"],
-    specs: [
-      ["Nama", "YU ZHONG PRIME"],
-      ["Skin", "356"],
-      ["Hero", "132"],
-      ["Ex", "61 Glory"],
-      ["Spek Setara Dengan", "14397 Diamond"],
+    images: [
+      "jual/ai redmi 12c dpn.png",
+      "jual/ai redmi 12c blg.png",
+      "jual/redmi 12c dpn.jpg",
+      "jual/redmi 12c blg.jpg",
     ],
-    desc: "🔥 PROMO SPESIAL AKUN MOBILE LEGENDS MURAH! 🔥 Dijual akun Mobile Legends dengan spek tinggi dan koleksi skin keren! Cocok buat push rank atau kolektor skin.  ✨ Detail Akun:  Rank tinggi + Mythic Glory 🏆  Banyak skin keren (Epic, Luckybox, dll)  Skin PRIME & kolektor langka  Emote dan item lengkap  Total skin banyak (siap dipakai tanpa grind lagi)  💰 Harga Promo: 95 Ringgit  120 Ringgit ❌ (harga normal) 🎯 Hemat besar! Langsung pakai tanpa ribet build dari awal  📩 Minat? Langsung chat sebelum keambil!",
+    specs: [
+      ["kelengkapan", "hanya hp saja"],
+      ["kondisi", "bekas, mulus, no minus"],
+      ["prosesor", "mediatek helio g85 octa-core 2.0ghz"],
+      ["RAM", "6GB"],
+      ["Penyimpanan", "128GB"],
+      ["Kamera", "50MP + 8MP + 2MP"],
+      ["Baterai", "5000mAh"],
+    ],
+    desc: "Jual HP Redmi 12c 6GB/128GB - Kondisi: Bekas, Mulus, No Minus - Harga: RM 270 (Nego) - kelengkapan: HANYA HP tanpa box dan charger - Spesifikasi: Prosesor mediatek helio g85 octa-core 2.0ghz, RAM 6GB, Penyimpanan 128GB, Kamera 50MP + 8MP + 2MP, Baterai 5000mAh - Cocok untuk penggunaan sehari-hari, gaming ringan, dan fotografi. - Hubungi kami untuk info lebih lanjut atau nego harga!",
+  },
+  {
+    id: 2,
+    name: "Jual Hp Vivo Y11 3GB/32GB",
+    category: "aksesoris",
+    price: 100,
+    originalPrice: 150,
+    discount: 33,
+    rating: 4.9,
+    sold: 0,
+    location: "parasmark",
+    waNumber: "601137009088",
+    isNew: false,
+    isPromo: true,
+    images: [
+      "jual/ai vivo y11 blg.png",
+      "jual/ai vivo y11 dpn.png",
+      "jual/vivo y11 blg.jpg",
+      "jual/vivo y11 dpn.jpg",
+    ],
+    specs: [
+      ["Kelengkapan", "hanya hp saja"],
+      ["Kondisi", "bekas, mulus, no minus"],
+      ["Prosesor", "Qualcomm Snapdragon 439 octa-core 2.0GHz"],
+      ["Baterai", "5000mAh"],
+      ["Penyimpanan", "32GB"],
+      ["RAM", "3GB"],
+    ],
+    desc: "jual hp vivo y11 3gb/32gb - Kondisi: Bekas, Mulus, No Minus - Harga: RM 100 next - kelengkapan: HANYA HP tanpa box dan charger - Spesifikasi: Prosesor Qualcomm Snapdragon 439 octa-core 2.0GHz, Baterai 5000mAh, Penyimpanan 32GB, RAM 3GB - Cocok untuk penggunaan sehari-hari.",
   },
   {
     id: 3,
@@ -103,7 +116,7 @@ let products = [
     originalPrice: 30,
     discount: 3,
     rating: 4.9,
-    sold: 47,
+    sold: 1,
     location: "parasmark",
     waNumber: "60137009088",
     isNew: true,
@@ -148,7 +161,7 @@ let products = [
     rating: 5.0,
     sold: 8,
     location: "parasmark",
-    waNumber: "628123450007",
+    waNumber: "60137009088",
     isNew: false,
     isPromo: true,
     images: ["jual/topup ewallet.png"],
@@ -161,55 +174,49 @@ let products = [
   },
   {
     id: 8,
-    name: "RAM DDR5 32GB 6400MHz Kingston Fury Beast RGB",
-    category: "ram",
-    price: 1850000,
-    originalPrice: 2100000,
-    discount: 12,
-    rating: 4.9,
-    sold: 210,
-    location: "Jakarta Barat",
-    waNumber: "628123450008",
-    isNew: false,
+    name: "Jual Akun Game Moblie Legends",
+    category: "gpu",
+    price: 95,
+    originalPrice: 120,
+    discount: 19,
+    rating: 5.0,
+    sold: 3,
+    location: "Parasmark",
+    waNumber: "60137009088",
+    isNew: true,
     isPromo: true,
-    images: [
-      "https://picsum.photos/seed/ramddr5a/600/500",
-      "https://picsum.photos/seed/ramddr5b/600/500",
-    ],
+    images: ["jual/GRANGER PRIME.png", "jual/GRANGER PRIME SKIN.png"],
     specs: [
-      ["Kapasitas", "32GB (2x16GB)"],
-      ["Tipe", "DDR5"],
-      ["Kecepatan", "6400 MHz"],
-      ["Latensi", "CL32"],
-      ["RGB", "Ya"],
+      ["Nama", "GRANGER PRIME"],
+      ["Skin", "228"],
+      ["Hero", "117"],
+      ["Ex", "72 Glory"],
+      ["Spek Setara Dengan", "15988 Diamond"],
     ],
-    desc: "Kingston Fury Beast DDR5 RGB memberikan performa tinggi dengan efisiensi daya yang lebih baik. Lighting RGB yang cantik dan kompatibel dengan platform Intel & AMD terbaru.",
+    desc: "🔥 PROMO SPESIAL AKUN MOBILE LEGENDS MURAH! 🔥 Dijual akun Mobile Legends dengan spek tinggi dan koleksi skin keren! Cocok buat push rank atau kolektor skin.  ✨ Detail Akun:  Rank tinggi + Mythic Glory 🏆  Banyak skin keren (Epic, Luckybox, dll)  Skin PRIME & kolektor langka  Emote dan item lengkap  Total skin banyak (siap dipakai tanpa grind lagi)  💰 Harga Promo: 95 Ringgit  120 Ringgit ❌ (harga normal) 🎯 Hemat besar! Langsung pakai tanpa ribet build dari awal  📩 Minat? Langsung chat sebelum keambil!",
   },
   {
     id: 9,
-    name: "SSD NVMe M.2 Samsung 990 Pro 1TB PCIe 4.0",
-    category: "storage",
-    price: 1350000,
-    originalPrice: 1600000,
-    discount: 16,
-    rating: 4.9,
-    sold: 402,
-    location: "Tangerang",
-    waNumber: "628123450009",
+    name: "YU ZHONG PRIME",
+    category: "gpu",
+    price: 200,
+    originalPrice: null,
+    discount: null,
+    rating: 4.8,
+    sold: 1,
+    location: "parasmark",
+    waNumber: "60137009088",
     isNew: false,
     isPromo: true,
-    images: [
-      "https://picsum.photos/seed/ssd990proa/600/500",
-      "https://picsum.photos/seed/ssd990prob/600/500",
-    ],
+    images: ["jual/YU ZHONG PRIME.png", "jual/YU ZHONG PRIME SKIN.png"],
     specs: [
-      ["Kapasitas", "1TB"],
-      ["Interface", "PCIe 4.0 x4"],
-      ["Baca Seq.", "7450 MB/s"],
-      ["Tulis Seq.", "6900 MB/s"],
-      ["Faktor Bentuk", "M.2 2280"],
+      ["Nama", "YU ZHONG PRIME"],
+      ["Skin", "356"],
+      ["Hero", "132"],
+      ["Ex", "61 Glory"],
+      ["Spek Setara Dengan", "14397 Diamond"],
     ],
-    desc: "Samsung 990 Pro adalah SSD NVMe terkencang untuk PC gaming dan workstation. Kecepatan baca hingga 7450 MB/s dengan daya tahan premium.",
+    desc: "🔥 PROMO SPESIAL AKUN MOBILE LEGENDS MURAH! 🔥 Dijual akun Mobile Legends dengan spek tinggi dan koleksi skin keren! Cocok buat push rank atau kolektor skin.  ✨ Detail Akun:  Rank tinggi + Mythic Glory 🏆  Banyak skin keren (Epic, Luckybox, dll)  Skin PRIME & kolektor langka  Emote dan item lengkap  Total skin banyak (siap dipakai tanpa grind lagi)  💰 Harga Promo: 95 Ringgit  120 Ringgit ❌ (harga normal) 🎯 Hemat besar! Langsung pakai tanpa ribet build dari awal  📩 Minat? Langsung chat sebelum keambil!",
   },
   {
     id: 10,
@@ -261,29 +268,23 @@ let products = [
   },
   {
     id: 12,
-    name: "RAM DDR4 16GB 3600MHz Corsair Vengeance LPX",
+    name: "Jasa Permak Levis atau jasa jahit",
     category: "ram",
-    price: 620000,
-    originalPrice: 750000,
-    discount: 17,
+    price: 15,
+    originalPrice: null,
+    discount: null,
     rating: 4.8,
-    sold: 521,
-    location: "Semarang",
+    sold: 5,
+    location: "parasmark",
     waNumber: "628123450012",
     isNew: false,
     isPromo: true,
-    images: [
-      "https://picsum.photos/seed/corsairrama/600/500",
-      "https://picsum.photos/seed/corsairramb/600/500",
-    ],
+    images: ["jual/permak levis.png"],
     specs: [
-      ["Kapasitas", "16GB (2x8GB)"],
-      ["Tipe", "DDR4"],
-      ["Kecepatan", "3600 MHz"],
-      ["Latensi", "CL18"],
-      ["Profil XMP", "2.0"],
+      ["Ukuran", "Sampai lingkar pinggang 40 inci"],
+      ["Warna", "pilihan benang warna-warni"],
     ],
-    desc: "Corsair Vengeance LPX DDR4 hadir dengan profil rendah yang cocok untuk case dengan cooler besar. Performa stabil dan kompatibilitas tinggi.",
+    desc: "Jasa permak Levis atau jasa jahit dengan kualitas terbaik dan harga terjangkau.",
   },
 ];
 
@@ -477,11 +478,62 @@ function goSlide(index, el) {
   el.classList.add("active");
 }
 
-function buildAutoProductFromImage(fileName, imageUrl, id) {
-  const cleanName = fileName
+function normalizeTextKey(value) {
+  return String(value || "")
+    .toLowerCase()
     .replace(/\.[^.]+$/, "")
     .replace(/[\-_]+/g, " ")
+    .replace(/\s+/g, " ")
     .trim();
+}
+
+function getImageIdentityKeys(imageUrl, fileName) {
+  const keys = [];
+
+  const rawUrl = String(imageUrl || "").trim();
+  const rawName = String(fileName || "").trim();
+
+  if (rawUrl) {
+    let decodedUrl = rawUrl;
+    try {
+      decodedUrl = decodeURIComponent(rawUrl);
+    } catch (_) {
+      decodedUrl = rawUrl;
+    }
+
+    const cleanUrl = decodedUrl
+      .split(/[?#]/)[0]
+      .replace(/\\/g, "/")
+      .toLowerCase();
+
+    if (cleanUrl) keys.push(cleanUrl);
+
+    const baseFromUrl = cleanUrl.split("/").pop() || "";
+    if (baseFromUrl) keys.push(baseFromUrl);
+  }
+
+  if (rawName) {
+    let decodedName = rawName;
+    try {
+      decodedName = decodeURIComponent(rawName);
+    } catch (_) {
+      decodedName = rawName;
+    }
+
+    const cleanName = decodedName
+      .replace(/\\/g, "/")
+      .toLowerCase()
+      .split("/")
+      .pop();
+
+    if (cleanName) keys.push(cleanName);
+  }
+
+  return keys.filter(Boolean);
+}
+
+function buildAutoProductFromImage(fileName, imageUrl, id) {
+  const cleanName = normalizeTextKey(fileName);
   return {
     id,
     name: cleanName || `Produk ${id}`,
@@ -509,11 +561,18 @@ async function loadProductsFromJualDirectory() {
     const data = await resp.json();
     const images = Array.isArray(data.images) ? data.images : [];
 
-    const existing = new Set(
-      products
-        .flatMap((p) => p.images || [])
-        .map((img) => decodeURIComponent(String(img).toLowerCase())),
+    const existingImageKeys = new Set();
+    const existingNameKeys = new Set(
+      products.map((p) => normalizeTextKey(p.name)).filter(Boolean),
     );
+
+    for (const p of products) {
+      for (const img of p.images || []) {
+        for (const key of getImageIdentityKeys(img, "")) {
+          existingImageKeys.add(key);
+        }
+      }
+    }
 
     let nextId = products.reduce((max, p) => Math.max(max, p.id || 0), 0) + 1;
 
@@ -522,11 +581,19 @@ async function loadProductsFromJualDirectory() {
       const fileName = String(item.name || "").trim();
       if (!imageUrl || !fileName) continue;
 
-      const key = decodeURIComponent(imageUrl.toLowerCase());
-      if (existing.has(key)) continue;
+      const imageKeys = getImageIdentityKeys(imageUrl, fileName);
+      const isDuplicateImage = imageKeys.some((key) =>
+        existingImageKeys.has(key),
+      );
+      if (isDuplicateImage) continue;
+
+      const autoName = normalizeTextKey(fileName);
+      if (autoName && existingNameKeys.has(autoName)) continue;
 
       products.push(buildAutoProductFromImage(fileName, imageUrl, nextId));
-      existing.add(key);
+
+      imageKeys.forEach((key) => existingImageKeys.add(key));
+      if (autoName) existingNameKeys.add(autoName);
       nextId += 1;
     }
 
